@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using MvcModels.Models;
+using System;
 
 namespace MvcModels.Controllers
 {
@@ -46,9 +47,17 @@ namespace MvcModels.Controllers
             return View(names);
         }
 
-        public ActionResult Address(IList<AddressSummary> addresses)
+        public ActionResult Address(FormCollection formData)
         {
-            addresses = addresses ?? new List<AddressSummary>();
+            IList<AddressSummary> addresses = new List<AddressSummary>();
+            if (TryUpdateModel(addresses, formData))
+            {
+                // proceed as normal
+            }
+            else
+            {
+                // provide feedback to user
+            }
             return View(addresses);
         }
     }
